@@ -1,0 +1,5 @@
+profile: service
+defaultPackage: washing.machineru.scheduler.api
+---
+testFramework: junit
+sourceLanguage: java
