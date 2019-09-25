@@ -2,16 +2,22 @@ package washing.machineru.scheduler.api.scheduler;
 
 
 import java.util.List;
+import java.util.Optional;
 
 public interface SchedulerService {
+    Optional<List<Schedule>> getScheduledItemsForUser(long userId);
 
-    void submitSchedulerItem();
+    List<Schedule> getAllScheduledItems();
 
-    void updateSchedulerItem();
+    Optional<Schedule> getSchedulerItem(long userId, long scheduleId);
 
-    void deleteSchedulerItem();
+    void addSchedulerItem(Schedule schedule);
 
-    Schedule getSchedulerItem();
+    void updateSchedulerItem(Schedule schedule);
 
-    List<Schedule> getSchedulerItems();
+    void deleteSchedulerItem(long userId, long scheduleId);
+
+
+
+
 }

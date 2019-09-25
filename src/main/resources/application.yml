@@ -1,6 +1,14 @@
 micronaut:
   application:
     name: washing-machineru-scheduler-api
+  router:
+    static-resources:
+      swagger:
+        paths: classpath:META-INF/swagger
+        mapping: /swagger/**
+    versioning:
+      enabled: true
+      default-version: 1
   security:
     enabled: true
     endpoints:
@@ -15,3 +23,20 @@ micronaut:
           secret:
             generator:
               secret: pleaseChangeThisSecretForANewOne
+
+datasources:
+  default:
+    url: ${JDBC_URL:`jdbc:postgresql://localhost:5432/scheduler`}
+    username: ${JDBC_USER:dbuser}
+    password: ${JDBC_PASSWORD:secretPassword}
+    driverClassName: ${JDBC_DRIVER:org.postgresql.Driver}
+
+jpa:
+  default:
+    packages-to-scan:
+      - 'washing.machineru.scheduler.api.scheduler'
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: update
+        show_sql: true

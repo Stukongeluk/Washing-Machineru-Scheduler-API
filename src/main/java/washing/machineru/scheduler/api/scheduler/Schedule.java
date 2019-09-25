@@ -1,5 +1,7 @@
 package washing.machineru.scheduler.api.scheduler;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -9,15 +11,20 @@ import java.util.Date;
 public class Schedule {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonProperty
     private Long id;
 
     @NotNull
     @Column(name = "userId", nullable = false)
+    @JsonProperty
     private Long userId;
 
     @Column(name = "startDateTime", nullable = false)
+    @JsonProperty
     private Date startDateTime;
+
     @Column(name = "endDateTime", nullable = false)
+    @JsonProperty
     private Date endDateTime;
 
     public Long getId() {
