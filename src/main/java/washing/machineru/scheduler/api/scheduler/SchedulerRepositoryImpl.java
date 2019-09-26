@@ -1,12 +1,12 @@
 package washing.machineru.scheduler.api.scheduler;
 
 import io.micronaut.configuration.hibernate.jpa.scope.CurrentSession;
+import io.micronaut.spring.tx.annotation.Transactional;
 
 import javax.inject.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,7 +57,13 @@ public class SchedulerRepositoryImpl implements SchedulerRepository {
     @Override
     @Transactional
     public void removeScheduleItemById(long userId, long id) {
-
+        String queryString = "SELECT schedule from Schedule as schedule " +
+                "WHERE userid = :userId AND id = :id";
+        Schedule schedule = entityManager.createQuery(queryString, Schedule.class)
+                .setParameter("userId", userId)
+                .setParameter("id", id)
+                .getSingleResult();
+        entityManager.remove(schedule);
     }
 
     @Override

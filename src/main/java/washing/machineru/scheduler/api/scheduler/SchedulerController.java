@@ -1,9 +1,9 @@
 package washing.machineru.scheduler.api.scheduler;
 
-import io.micronaut.context.annotation.Parameter;
 import io.micronaut.core.version.annotation.Version;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.*;
+import washing.machineru.scheduler.api.scheduler.pojo.ScheduleItemIdentifier;
 
 import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
@@ -53,8 +53,8 @@ public class SchedulerController {
 
     @Version("1")
     @Delete("/schedule")
-    HttpResponse deleteScheduleItem(@NotNull @Body long userId, long id) {
-        this.schedulerService.deleteSchedulerItem(userId, id);
+    HttpResponse deleteScheduleItem(@NotNull @Body ScheduleItemIdentifier scheduleItemIdentifier) {
+        this.schedulerService.deleteSchedulerItem(scheduleItemIdentifier.getUserId(), scheduleItemIdentifier.getId());
         return HttpResponse.ok();
     }
 }

@@ -9,20 +9,20 @@ micronaut:
     versioning:
       enabled: true
       default-version: 1
-  security:
-    enabled: true
-    endpoints:
-      login:
-        enabled: true
-      oauth:
-        enabled: true
-    token:
-      jwt:
-        enabled: true
-        signatures:
-          secret:
-            generator:
-              secret: pleaseChangeThisSecretForANewOne
+#  security:
+#    enabled: true
+#    endpoints:
+#      login:
+#        enabled: true
+#      oauth:
+#        enabled: true
+#    token:
+#      jwt:
+#        enabled: true
+#        signatures:
+#          secret:
+#            generator:
+#              secret: pleaseChangeThisSecretForANewOne
 
 datasources:
   default:
