@@ -38,30 +38,32 @@ public class SchedulerRepositoryImpl implements SchedulerRepository {
     @Override
     @Transactional
     public Optional<List<Schedule>> getScheduledItemsForUser(long userId) {
-        return Optional.ofNullable(entityManager.createQuery("SELECT scheduleItem from Schedule as scheduleItem " +
+        List<Schedule> scheduleList = entityManager.createQuery("SELECT scheduleItem from Schedule as scheduleItem " +
                 "WHERE userId = :userId", Schedule.class)
                 .setParameter("userId", userId)
-                .getResultList());
+                .getResultList();
+        return scheduleList.size() > 0 ? Optional.of(scheduleList) : Optional.empty();
     }
 
     @Override
     @Transactional
     public Optional<Schedule> getSchedulerItem(long userId, long scheduleId) {
-        return Optional.ofNullable(entityManager.createQuery("SELECT scheduleItem from Schedule as scheduleItem " +
+        List<Schedule> scheduleList = entityManager.createQuery("SELECT scheduleItem from Schedule as scheduleItem " +
                 "WHERE userId = :userId AND scheduleId = :scheduleId", Schedule.class)
                 .setParameter("userId", userId)
-                .setParameter("id", scheduleId)
-                .getSingleResult());
+                .setParameter("scheduleId", scheduleId)
+                .getResultList();
+        return scheduleList.size() > 0 ? Optional.of(scheduleList.get(0)) : Optional.empty();
     }
 
     @Override
     @Transactional
-    public void removeScheduleItemById(long userId, long id) {
+    public void removeScheduleItemById(long userId, long scheduleId) {
         String queryString = "SELECT schedule from Schedule as schedule " +
-                "WHERE userid = :userId AND id = :id";
+                "WHERE userid = :userId AND scheduleId = :scheduleId";
         Schedule schedule = entityManager.createQuery(queryString, Schedule.class)
                 .setParameter("userId", userId)
-                .setParameter("id", id)
+                .setParameter("scheduleId", scheduleId)
                 .getSingleResult();
         entityManager.remove(schedule);
     }
@@ -71,11 +73,11 @@ public class SchedulerRepositoryImpl implements SchedulerRepository {
         entityManager.createQuery("UPDATE Schedule schedule " +
                 "SET startDateTime = :startDateTime," +
                 "endDateTime = :endDateTime " +
-                "WHERE userId = :userId AND id = :id")
+                "WHERE userId = :userId AND scheduleId = :scheduleId")
         .setParameter("startDateTime", schedule.getStartDateTime())
         .setParameter("endDateTime", schedule.getEndDateTime())
         .setParameter("userId", schedule.getUserId())
-        .setParameter("id", schedule.getId())
+        .setParameter("scheduleId", schedule.getId())
         .executeUpdate();
     }
 }

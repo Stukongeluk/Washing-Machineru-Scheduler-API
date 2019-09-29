@@ -23,18 +23,22 @@ public class SchedulerController {
 
     @Version("1")
     @Get("/schedules/{userId}")
-    HttpResponse getSchedulerItemsForUser(long userId) {
+    HttpResponse getScheduledItemsForUser(long userId) {
         Optional<List<Schedule>> scheduleList = this.schedulerService.getScheduledItemsForUser(userId);
-        scheduleList.ifPresent(HttpResponse::ok);
-        return HttpResponse.notFound();
+        if (scheduleList.isPresent()) {
+            return HttpResponse.ok(scheduleList.get());
+        }
+        return HttpResponse.ok("No items found");
     }
 
     @Version("1")
-    @Get("/schedule/{userId}/{id}")
-    HttpResponse getSchedulerItem(long userId, long id) {
-        Optional<Schedule> scheduleItem = this.schedulerService.getSchedulerItem(userId, id);
-        scheduleItem.ifPresent(HttpResponse::ok);
-        return HttpResponse.notFound();
+    @Get("/schedule/{userId}/{scheduleId}")
+    HttpResponse getSchedulerItem(long userId, long scheduleId) {
+        Optional<Schedule> scheduleItem = this.schedulerService.getSchedulerItem(userId, scheduleId);
+        if (scheduleItem.isPresent()) {
+            return HttpResponse.ok(scheduleItem.get());
+        }
+        return HttpResponse.ok("No item found for given userId and schedule id");
     }
 
     @Version("1")
