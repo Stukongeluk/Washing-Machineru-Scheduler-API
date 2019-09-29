@@ -15,13 +15,13 @@ public class SchedulerServiceImpl implements SchedulerService {
     }
 
     @Override
-    public Optional<List<Schedule>> getScheduledItemsForUser(long userId) {
-        return this.schedulerRepository.getScheduledItemsForUser(userId);
+    public List<Schedule> getAllScheduledItems() {
+        return this.schedulerRepository.getAllScheduledItems();
     }
 
     @Override
-    public List<Schedule> getAllScheduledItems() {
-        return this.schedulerRepository.getAllScheduledItems();
+    public Optional<List<Schedule>> getScheduledItemsForUser(long userId) {
+        return this.schedulerRepository.getScheduledItemsForUser(userId);
     }
 
     @Override
