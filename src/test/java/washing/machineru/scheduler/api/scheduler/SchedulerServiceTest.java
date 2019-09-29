@@ -39,7 +39,7 @@ class SchedulerServiceTest {
     @Test
     void givenAListOf3ScheduleItems_whenCallingGetAllScheduledItems_itShouldReturnAListOf3ScheduledItems() {
         final List<Schedule> scheduleList = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 3; i++) {
             Schedule schedule = new Schedule();
             scheduleList.add(schedule);
         }

@@ -11,6 +11,7 @@ import io.micronaut.test.annotation.MicronautTest;
 import io.micronaut.test.annotation.MockBean;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import washing.machineru.scheduler.api.Application;
 import washing.machineru.scheduler.api.scheduler.pojo.ScheduleItemIdentifier;
 
 import javax.inject.Inject;
@@ -23,7 +24,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@MicronautTest
+@MicronautTest(application= Application.class)
 class SchedulerControllerTest {
     @Inject
     SchedulerService schedulerService;
